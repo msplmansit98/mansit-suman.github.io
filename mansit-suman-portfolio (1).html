@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0c">
+<title>Mansit Suman — Analytics Engineer · New York</title>
+<meta name="description" content="Mansit Suman — Analytics Engineer & Data + AI Consultant in New York. Building canonical data models, pipelines, and self-service analytics at Fortune 10 and Fortune 100 clients.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0a0c'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-family='JetBrains Mono,monospace' font-size='60' font-weight='600' fill='%23f97316'%3Em%3C/text%3E%3C/svg%3E">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:           #0a0a0c;
+    --bg-2:         #131316;
+    --bg-3:         #1a1a1e;
+    --line:         rgba(255, 255, 255, 0.07);
+    --line-2:       rgba(255, 255, 255, 0.14);
+    --text:         #e8e8ea;
+    --text-2:       #b4b4b8;
+    --muted:        #6b6b70;
+    --accent:       #f97316;
+    --accent-2:     #fb923c;
+    --accent-soft:  rgba(249, 115, 22, 0.12);
+    --green:        #10b981;
+    --yellow:       #eab308;
+
+    --sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background-color: var(--bg);
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 0);
+    background-size: 28px 28px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  body.loaded { opacity: 1; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+  .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+  .dot.green   { background: var(--green);  box-shadow: 0 0 8px rgba(16, 185, 129, 0.55); }
+  .dot.amber   { background: var(--yellow); box-shadow: 0 0 8px rgba(234, 179, 8, 0.45); }
+  .dot.accent  { background: var(--accent); box-shadow: 0 0 8px rgba(249, 115, 22, 0.5); }
+  .dot.pulse   { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.55;transform:scale(1.4)} }
+
+  .mono { font-family: var(--mono); }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    display: inline-flex; align-items: center; gap: 0.55rem;
+  }
+  .accent { color: var(--accent); }
+
+  .page {
+    max-width: 1080px; margin-inline: auto;
+    padding-inline: clamp(1.1rem, 4vw, 2.5rem);
+  }
+  section { padding-block: clamp(3rem, 6.5vw, 5.5rem); border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: 0; }
+
+  .section-head {
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: 1.5rem; align-items: baseline;
+    margin-bottom: clamp(1.6rem, 4vw, 2.4rem);
+  }
+  .section-head .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--muted); }
+  .section-head h2 {
+    font-family: var(--sans); font-weight: 500;
+    font-size: clamp(1.55rem, 3.2vw, 2.1rem);
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--text);
+  }
+  .section-head h2 .accent { color: var(--accent); font-weight: 500; }
+  .section-head .sub { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 0.4rem; }
+  @media (max-width: 600px) {
+    .section-head { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+
+  /* topbar */
+  header.topbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    background: rgba(10, 10, 12, 0.78);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  header.topbar.scrolled { border-bottom-color: var(--line); }
+  .topbar-inner {
+    max-width: 1080px; margin-inline: auto;
+    padding: 0.85rem clamp(1.1rem, 4vw, 2.5rem);
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  }
+  .brand {
+    font-family: var(--mono); font-size: 12px; font-weight: 500;
+    display: inline-flex; gap: 0.45rem; align-items: center; color: var(--text);
+  }
+  .brand .sigil { font-weight: 600; color: var(--accent); font-size: 13px; }
+  nav.primary { display: flex; gap: 0.2rem; align-items: center; }
+  nav.primary a {
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 0.45rem 0.75rem; border-radius: 6px; color: var(--text-2);
+    transition: background 0.25s ease, color 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  nav.primary a:hover { background: var(--bg-2); color: var(--text); }
+  nav.primary a.active { color: var(--accent); background: var(--accent-soft); }
+  nav.primary a.cta { background: var(--accent); color: var(--bg); font-weight: 500; }
+  nav.primary a.cta:hover { background: var(--accent-2); color: var(--bg); }
+  nav.primary a.cta.active { background: var(--accent); color: var(--bg); }
+  @media (max-width: 480px) {
+    .brand .full { display: none; }
+    nav.primary a { padding: 0.4rem 0.6rem; font-size: 11px; }
+  }
+
+  /* hero */
+  .hero {
+    padding-top: clamp(2.4rem, 8vw, 5rem);
+    padding-bottom: clamp(2.6rem, 6vw, 4.5rem);
+    border-top: 0;
+  }
+  .hero .status { margin-bottom: clamp(1.6rem, 5vw, 3rem); }
+  .hero h1 {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(2.4rem, 11vw, 5.5rem);
+    line-height: 1; letter-spacing: -0.04em; color: var(--text);
+    display: inline-block;
+  }
+  .hero h1 .cursor {
+    display: inline-block; color: var(--accent); font-weight: 400;
+    margin-left: 0.05em; animation: blink 1.1s steps(2, end) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .role-line {
+    font-family: var(--mono);
+    font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+    color: var(--text-2); margin-top: 0.9rem;
+    display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+    line-height: 1.6;
+  }
+  .role-line .prompt { color: var(--accent); }
+  .role-line .slash  { color: var(--muted); }
+  .role-line .role   { color: var(--text); font-weight: 500; }
+  .role-line .comment { color: var(--muted); }
+  .role-line .pillar.on { color: var(--accent); }
+
+  .tagline {
+    font-family: var(--sans); font-weight: 400;
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    line-height: 1.45; color: var(--text);
+    margin-top: 1.6rem; max-width: 36ch;
+    letter-spacing: -0.005em;
+  }
+  .tagline em { font-style: normal; color: var(--accent); font-weight: 500; }
+
+  .define {
+    position: relative; cursor: help;
+    border-bottom: 1px dashed rgba(249, 115, 22, 0.45);
+    transition: border-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .define:hover, .define:focus { border-bottom-color: var(--accent); outline: none; }
+  .define::after {
+    content: attr(data-def);
+    position: absolute; left: 0; top: calc(100% + 0.7rem);
+    width: max-content;
+    max-width: min(280px, calc(100vw - 2rem));
+    padding: 0.7rem 0.9rem;
+    background: var(--bg-3); color: var(--text);
+    border: 1px solid var(--line-2);
+    font-family: var(--sans); font-weight: 400; font-style: normal;
+    font-size: 12.5px; line-height: 1.5; letter-spacing: 0;
+    border-radius: 6px;
+    opacity: 0; pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.25s ease, transform 0.25s var(--ease);
+    z-index: 20;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);
+  }
+  .define:hover::after, .define:focus::after { opacity: 1; transform: translateY(0); }
+  @media (max-width: 540px) {
+    .define::after {
+      position: fixed; left: 1rem; right: 1rem; top: auto; bottom: 1rem;
+      width: auto; max-width: none;
+      padding: 0.9rem 1rem; font-size: 13px;
+      transform: translateY(8px);
+    }
+    .define:hover::after, .define:focus::after, .define:active::after { transform: translateY(0); }
+  }
+
+  .hero-bio {
+    margin-top: clamp(1.6rem, 4vw, 2.5rem);
+    font-size: clamp(0.95rem, 1.1vw, 1rem);
+    line-height: 1.65; color: var(--text-2);
+    max-width: 62ch;
+  }
+  .hero-bio b { color: var(--text); font-weight: 500; }
+  .hero-bio .accent { color: var(--accent); font-weight: 500; }
+
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: clamp(1.8rem, 4vw, 2.5rem);
+  }
+  .meta-pill {
+    font-family: var(--mono); font-size: 11px;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 6px; color: var(--text-2);
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    background: var(--bg-2);
+  }
+  .meta-pill .accent { color: var(--accent); font-weight: 500; }
+
+  /* filters */
+  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .filter {
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 6px; color: var(--text-2);
+    background: var(--bg-2);
+    transition: all 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .filter:hover { border-color: var(--line-2); color: var(--text); }
+  .filter:active { transform: scale(0.96); }
+  .filter.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .filter .count { color: var(--muted); margin-left: 0.4rem; font-size: 0.88em; transition: color 0.25s ease; }
+  .filter.active .count { color: rgba(10, 10, 12, 0.55); }
+
+  /* cases */
+  .cases { display: flex; flex-direction: column; }
+  .case {
+    border-top: 1px solid var(--line);
+    max-height: 1600px;
+    overflow: hidden;
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      max-height 0.5s var(--ease),
+      margin 0.35s ease,
+      border-color 0.35s ease;
+  }
+  .case:last-child { border-bottom: 1px solid var(--line); }
+  .case.hidden {
+    opacity: 0; transform: translateY(-8px);
+    pointer-events: none; max-height: 0;
+    border-top-color: transparent; margin-top: -1px;
+  }
+
+  .case-head {
+    width: 100%;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 1rem; padding: 1.3rem 0;
+    align-items: center; text-align: left; color: inherit;
+    transition: padding 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .case-head:hover { padding-left: 0.5rem; }
+  .case-head:hover .case-title { color: var(--accent); }
+
+  .case-lead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.8rem; }
+  .case-idx { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .case-title {
+    font-family: var(--mono); font-weight: 500;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    color: var(--text);
+    transition: color 0.25s ease; letter-spacing: -0.005em;
+  }
+  .case-status {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-2);
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+  .case-tags {
+    grid-column: 1; grid-row: 2;
+    display: flex; flex-wrap: wrap; gap: 0.35rem;
+    margin-top: 0.55rem;
+  }
+  .tag-mini {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--text-2);
+    padding: 0.18rem 0.5rem;
+    background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px;
+  }
+  .case-toggle {
+    grid-column: 2; grid-row: 1 / span 2;
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid var(--line-2);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--text-2); background: var(--bg-2);
+    transition: all 0.3s var(--ease);
+    flex-shrink: 0; align-self: center;
+  }
+  .case-toggle svg { width: 13px; height: 13px; transition: transform 0.35s var(--ease); }
+  .case.open .case-toggle { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .case.open .case-toggle svg { transform: rotate(135deg); }
+
+  .case-body {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s var(--ease);
+  }
+  .case-body-inner { overflow: hidden; }
+  .case.open .case-body { grid-template-rows: 1fr; }
+
+  .case-fields {
+    padding: 0.4rem 0 1.5rem 0;
+    border-top: 1px dashed var(--line);
+    margin-top: 0.4rem;
+  }
+  .field {
+    display: grid; grid-template-columns: 120px 1fr;
+    gap: 1rem; padding: 0.55rem 0;
+    align-items: baseline;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s var(--ease);
+  }
+  .case.open .field { opacity: 1; transform: translateY(0); }
+  .case.open .field:nth-child(1) { transition-delay: 0.1s; }
+  .case.open .field:nth-child(2) { transition-delay: 0.18s; }
+  .case.open .field:nth-child(3) { transition-delay: 0.26s; }
+  .case.open .field:nth-child(4) { transition-delay: 0.34s; }
+  .case.open .field:nth-child(5) { transition-delay: 0.42s; }
+  .case.open .field:nth-child(6) { transition-delay: 0.5s; }
+  .case.open .field:nth-child(7) { transition-delay: 0.58s; }
+
+  .field-key { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .field-key::after { content: ':'; color: var(--line-2); }
+  .field-val { font-size: 0.94rem; line-height: 1.55; color: var(--text-2); }
+  .field-val strong { color: var(--text); font-weight: 500; }
+  .field-val em { font-style: normal; color: var(--accent); font-weight: 500; }
+  .field-val a {
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft);
+    transition: border-color 0.2s ease;
+  }
+  .field-val a:hover { border-bottom-color: var(--accent); }
+  .field-val.stack { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .stack-pill {
+    font-family: var(--mono); font-size: 11px;
+    padding: 0.2rem 0.55rem;
+    background: var(--bg-3); color: var(--text-2);
+    border: 1px solid var(--line); border-radius: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .case-head { grid-template-columns: 1fr auto; }
+    .case-lead { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+    .case-status { font-size: 10.5px; }
+    .case-toggle { width: 28px; height: 28px; }
+    .field { grid-template-columns: 1fr; gap: 0.15rem; padding: 0.55rem 0; }
+    .field-key { font-size: 10.5px; }
+  }
+
+  /* principles */
+  .principles-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px; overflow: hidden;
+  }
+  .principle {
+    padding: 1.4rem 1.4rem 1.6rem;
+    background: var(--bg);
+    transition: background 0.25s ease;
+  }
+  .principle:hover { background: var(--bg-2); }
+  .principle .pnum {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent); margin-bottom: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+  .principle h3 {
+    font-family: var(--sans); font-weight: 500;
+    font-size: 1.1rem; line-height: 1.25;
+    margin-bottom: 0.5rem; letter-spacing: -0.01em;
+  }
+  .principle h3 .accent { color: var(--accent); }
+  .principle p { font-size: 0.92rem; line-height: 1.6; color: var(--text-2); }
+  .principle p em { font-style: normal; color: var(--text); font-weight: 500; }
+  @media (max-width: 700px) { .principles-grid { grid-template-columns: 1fr; } }
+
+  /* stack matrix */
+  .stack {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px; overflow: hidden;
+  }
+  .stack-col { padding: 1.2rem 1.1rem 1.3rem; background: var(--bg); }
+  .stack-col h4 {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--accent); margin-bottom: 0.9rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .stack-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .stack-col li {
+    font-family: var(--mono); font-size: 12.5px;
+    color: var(--text-2);
+    display: flex; align-items: center; gap: 0.45rem;
+    transition: color 0.2s ease;
+  }
+  .stack-col li:hover { color: var(--text); }
+  .stack-col li::before { content: '→'; color: var(--muted); font-size: 11px; transition: color 0.2s ease; }
+  .stack-col li:hover::before { color: var(--accent); }
+  .stack-col li.new { color: var(--text); position: relative; }
+  .stack-col li.new::after {
+    content: 'NEW'; font-size: 9px;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 1px 4px; border-radius: 3px;
+    margin-left: 0.3rem; letter-spacing: 0.04em;
+  }
+
+  .stack-adjacent {
+    margin-top: 1rem; padding: 0.85rem 1rem;
+    background: var(--bg-2);
+    border: 1px dashed var(--line-2);
+    border-radius: 6px;
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--text-2);
+    display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+  }
+  .stack-adjacent .lbl {
+    color: var(--muted); text-transform: uppercase;
+    font-size: 10.5px; letter-spacing: 0.08em;
+    margin-right: 0.3rem;
+  }
+  @media (max-width: 800px) { .stack { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 460px) { .stack { grid-template-columns: 1fr; } }
+
+  /* career git-log */
+  .git-log {
+    font-family: var(--mono);
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 6px; overflow: hidden;
+  }
+  .commit {
+    display: grid; grid-template-columns: auto 1fr auto;
+    gap: 1.2rem; padding: 1rem 1.2rem;
+    border-top: 1px solid var(--line);
+    align-items: center;
+    transition: background 0.2s ease;
+  }
+  .commit:first-child { border-top: 0; }
+  .commit:hover { background: var(--bg-3); }
+  .commit-hash { color: var(--accent); font-size: 12px; }
+  .commit-body { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .commit-msg {
+    color: var(--text); font-size: 13px; font-weight: 500;
+    font-family: var(--sans); letter-spacing: -0.005em;
+  }
+  .commit-msg em { font-style: normal; color: var(--accent); font-weight: 500; }
+  .commit-meta { color: var(--muted); font-size: 11px; }
+  .commit-meta .here { color: var(--accent); }
+  .commit-date { color: var(--text-2); font-size: 11.5px; white-space: nowrap; }
+  .commit.current .commit-date strong { color: var(--accent); font-weight: 500; }
+  .commit.current .commit-hash { font-weight: 600; }
+
+  .career-foot {
+    margin-top: 1rem; padding: 0.5rem 0.2rem;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted);
+    display: flex; flex-wrap: wrap; gap: 1rem;
+  }
+  .career-foot .accent { color: var(--accent); }
+  @media (max-width: 540px) {
+    .commit { grid-template-columns: 1fr; gap: 0.3rem; padding: 0.9rem 1rem; }
+    .commit-hash { font-size: 11px; }
+    .commit-date { font-size: 11px; }
+  }
+
+  /* speaking */
+  .speak {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 1.6rem; align-items: center;
+    padding: 1.6rem; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 8px;
+    position: relative; overflow: hidden;
+  }
+  .speak::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; bottom: 0; width: 3px;
+    background: var(--accent);
+  }
+  .quote {
+    font-family: var(--sans); font-weight: 400;
+    font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+    line-height: 1.45; color: var(--text); letter-spacing: -0.005em;
+  }
+  .quote em { font-style: normal; color: var(--accent); font-weight: 500; }
+  .quote .attr {
+    display: block;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); margin-top: 1rem;
+  }
+  .talk-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    background: var(--accent); color: var(--bg);
+    border-radius: 6px;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.25s ease, transform 0.25s var(--ease), gap 0.25s ease;
+  }
+  .talk-btn:hover { background: var(--accent-2); transform: translateY(-2px); gap: 0.7rem; }
+  .talk-btn:active { transform: translateY(0); }
+  .talk-btn svg { width: 11px; height: 11px; }
+  @media (max-width: 640px) {
+    .speak { grid-template-columns: 1fr; padding: 1.3rem; }
+    .talk-btn { align-self: flex-start; }
+  }
+
+  /* testimonials */
+  .testimonials { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .testi {
+    padding: 1.4rem 1.4rem 1.3rem;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 0.25s ease, transform 0.25s var(--ease);
+  }
+  .testi:hover { border-color: var(--line-2); transform: translateY(-2px); }
+  .testi p { font-size: 0.95rem; line-height: 1.55; color: var(--text-2); margin-bottom: 1rem; }
+  .testi p em { font-style: normal; color: var(--text); font-weight: 500; }
+  .testi .by {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--muted);
+    display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;
+  }
+  .testi .by strong { color: var(--accent); font-weight: 500; }
+  @media (max-width: 640px) { .testimonials { grid-template-columns: 1fr; } }
+
+  /* below */
+  .below { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); }
+  .below h3 {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--accent); margin-bottom: 1rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .books-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .books-list li {
+    padding: 0.7rem 0.8rem;
+    margin-inline: -0.8rem; border-radius: 6px;
+    transition: background 0.25s ease;
+    border: 1px solid transparent;
+  }
+  .books-list li:hover { background: var(--bg-2); border-color: var(--line); }
+  .books-list .b-ttl {
+    font-family: var(--sans); font-weight: 500;
+    font-size: 0.98rem; color: var(--text);
+    letter-spacing: -0.005em; display: block;
+  }
+  .books-list .b-ttl em { font-style: normal; color: var(--accent); }
+  .books-list .b-auth {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); margin-top: 0.15rem; display: block;
+  }
+
+  .interests-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .interests-list li {
+    display: grid; grid-template-columns: 92px 1fr;
+    gap: 1rem; padding: 0.7rem 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: baseline;
+    transition: padding 0.25s ease;
+  }
+  .interests-list li:last-child { border-bottom: 0; }
+  .interests-list li:hover { padding-left: 0.4rem; }
+  .interests-list .what {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--muted); letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .interests-list .how { font-size: 0.92rem; line-height: 1.4; color: var(--text-2); transition: color 0.25s ease; }
+  .interests-list li:hover .how { color: var(--text); }
+  .interests-list .how em { font-style: normal; color: var(--accent); font-weight: 500; }
+
+  @media (max-width: 720px) { .below { grid-template-columns: 1fr; gap: 2rem; } }
+  @media (max-width: 480px) {
+    .interests-list li { grid-template-columns: 1fr; gap: 0.15rem; padding: 0.7rem 0; }
+  }
+
+  /* contact */
+  .contact h2 {
+    font-family: var(--sans); font-weight: 500;
+    font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+    line-height: 1.1; letter-spacing: -0.025em;
+    margin-bottom: 1.8rem; max-width: 20ch;
+  }
+  .contact h2 .accent { color: var(--accent); }
+  .contact h2 a { color: var(--accent); position: relative; transition: opacity 0.25s ease; }
+  .contact h2 a::after {
+    content: ''; position: absolute;
+    bottom: 2px; left: 0; right: 0; height: 2px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s var(--ease);
+  }
+  .contact h2 a:hover::after { transform: scaleX(1); }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--line); border-radius: 6px;
+    overflow: hidden; background: var(--line);
+  }
+  .contact-grid > div {
+    padding: 1rem 1.1rem;
+    background: var(--bg);
+    transition: background 0.25s ease;
+  }
+  .contact-grid > div:hover { background: var(--bg-2); }
+  .contact-grid .lbl {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--muted);
+    margin-bottom: 0.35rem; letter-spacing: 0.04em;
+  }
+  .contact-grid .val {
+    font-family: var(--mono); font-size: 0.9rem;
+    color: var(--text); transition: color 0.25s ease;
+    word-break: break-word;
+  }
+  a.val:hover { color: var(--accent); }
+  @media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr 1fr; gap: 1px; } }
+  @media (max-width: 480px) { .contact-grid { grid-template-columns: 1fr; gap: 1px; } }
+
+  footer {
+    padding: 1.4rem clamp(1.1rem, 4vw, 2.5rem);
+    border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+  }
+  footer .inner {
+    max-width: 1080px; margin-inline: auto;
+    display: flex; justify-content: space-between; gap: 1rem;
+    flex-wrap: wrap; align-items: center;
+  }
+  footer .accent { color: var(--accent); }
+  @media (max-width: 720px) {
+    footer .inner { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.85s ease, transform 0.85s var(--ease); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .hero h1, .hero .role-line, .hero .tagline, .hero-bio, .hero .status, .hero-meta {
+    opacity: 0; transform: translateY(14px);
+    animation: rise 0.85s var(--ease) forwards;
+  }
+  .hero .status   { animation-delay: 0.1s; }
+  .hero h1        { animation-delay: 0.2s; }
+  .hero .role-line{ animation-delay: 0.4s; }
+  .hero .tagline  { animation-delay: 0.55s; }
+  .hero-bio       { animation-delay: 0.7s; }
+  .hero-meta      { animation-delay: 0.85s; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    body { opacity: 1; }
+    .reveal { opacity: 1; transform: none; }
+    .cursor { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="brand">
+      <span class="sigil">~</span>
+      <span class="full">mansit_suman</span>
+    </a>
+    <nav class="primary">
+      <a href="#work">work</a>
+      <a href="#principles">principles</a>
+      <a href="#cv">cv</a>
+      <a href="#contact" class="cta">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page" id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="status eyebrow"><span class="dot green pulse"></span>Open to Analytics roles · New York</span>
+
+    <h1>Mansit Suman<span class="cursor">_</span></h1>
+
+    <div class="role-line">
+      <span class="prompt">~</span><span class="slash">/</span><span class="role">analytics_engineer</span>
+      <span class="comment"># <span class="pillar on">data</span> · <span class="pillar on">engineering</span> · <span class="pillar on">ai</span> · <span class="pillar on">self-service</span></span>
+    </div>
+
+    <p class="tagline">
+      Doing
+      <em class="define" data-def="The metadata, semantics, and operational signals that make data interpretable to humans and agents. The unglamorous layer that decides whether your AI tells the truth.">context</em>
+      &amp;
+      <em class="define" data-def="The continuous practice of measuring, enforcing, and improving data fitness — where most analytics quietly fall over before anyone notices.">data&nbsp;quality</em>
+      engineering <em>before it was cool</em>.
+    </p>
+
+    <p class="hero-bio">
+      <b>Engagement Manager · Data &amp; AI Consultant</b> based in New York since June 2025. Six years at MathCo designing <b>canonical data models</b> and self-service foundations across <span class="accent">Fortune 10 and Fortune 100</span> clients — in <b>commercial, supply chain, and People &amp; Operations</b>. Currently architecting an <b>agentic ETL</b> system that automates engineering work end-to-end.
+    </p>
+
+    <div class="hero-meta">
+      <span class="meta-pill"><span class="accent">6</span> yrs analytics &amp; data eng.</span>
+      <span class="meta-pill"><span class="accent">30</span>-person team led</span>
+      <span class="meta-pill">F10 &amp; F100 clients</span>
+      <span class="meta-pill"><span class="dot green"></span>NY · Jun '25 →</span>
+      <span class="meta-pill"><span class="dot accent"></span>DES'25 speaker</span>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="reveal">
+    <div class="section-head">
+      <div class="num">— 01 / work</div>
+      <div>
+        <h2>Selected projects, <span class="accent">filter to taste.</span></h2>
+        <div class="sub">Latest first. Click any row to expand the spec.</div>
+      </div>
+    </div>
+
+    <div class="filters" role="tablist">
+      <button class="filter active" data-filter="all">all <span class="count">7</span></button>
+      <button class="filter" data-filter="modelling">modelling <span class="count">2</span></button>
+      <button class="filter" data-filter="data">data <span class="count">6</span></button>
+      <button class="filter" data-filter="engineering">engineering <span class="count">4</span></button>
+      <button class="filter" data-filter="ai">ai <span class="count">3</span></button>
+      <button class="filter" data-filter="selfserve">self-service <span class="count">3</span></button>
+    </div>
+
+    <div class="cases" id="cases">
+
+      <!-- 01 agentic ETL -->
+      <article class="case" data-tags="engineering ai data">
+        <button class="case-head" aria-expanded="false">
+          <div class="case-lead">
+            <span class="case-idx">./01</span>
+            <span class="case-title">agentic_etl</span>
+            <span class="case-status"><span class="dot amber"></span>In flight · 2026</span>
+          </div>
+          <div class="case-tags">
+            <span class="tag-mini">Engineering</span>
+            <span class="tag-mini">AI</span>
+            <span class="tag-mini">Automation</span>
+          </div>
+          <span class="case-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="case-body"><div class="case-body-inner"><div class="case-fields">
+          <div class="field"><span class="field-key">summary</span><span class="field-val">A multi-agent ETL system that automates data engineering end-to-end — from <strong>STTM authoring</strong> through transformation generation to <strong>customer-ready datasets</strong> aligned to pre-defined canonical models.</span></div>
+          <div class="field"><span class="field-key">agents</span><span class="field-val">Source profiler · STTM author · transform generator · model validator · doc &amp; lineage writer. Human-in-the-loop checkpoints between stages.</span></div>
+          <div class="field"><span class="field-key">why</span><span class="field-val">Engineers should architect; agents should bolt the parts together. Compress <em>weeks of plumbing into hours</em>, so consultants spend time on stakeholders and design.</span></div>
+          <div class="field"><span class="field-key">status</span><span class="field-val">Active development — <a href="#" target="_blank" rel="noopener">demo →</a></span></div>
+          <div class="field"><span class="field-key">stack</span><span class="field-val stack"><span class="stack-pill">Python</span><span class="stack-pill">LLM orchestration</span><span class="stack-pill">dbt</span><span class="stack-pill">Snowflake</span><span class="stack-pill">DuckDB</span></span></div>
+        </div></div></div>
+      </article>
+
+      <!-- 02 Fortune 10 SAM Roadmap -->
+      <article class="case" data-tags="data selfserve">
+        <button class="case-head" aria-expanded="false">
+          <div class="case-lead">
+            <span class="case-idx">./02</span>
+            <span class="case-title">fortune10_sam_roadmap</span>
+            <span class="case-status"><span class="dot"></span>Shipped · Nov 2025 — Jan 2026</span>
+          </div>
+          <div class="case-tags">
+            <span class="tag-mini">Strategy</span>
+            <span class="tag-mini">Roadmap</span>
+            <span class="tag-mini">Cross-functional</span>
+          </div>
+          <span class="case-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="case-body"><div class="case-body-inner"><div class="case-fields">
+          <div class="field"><span class="field-key">summary</span><span class="field-val">Three-year analytics roadmap for the <strong>South America business group</strong> of a Fortune 10 client. Interviewed leaders across every business function, mapped current state to north star, prioritised the build sequence.</span></div>
+          <div class="field"><span class="field-key">stakeholders</span><span class="field-val">C-suite + heads of supply chain, commercial, finance, digital, and R&amp;D across the SAM region.</span></div>
+          <div class="field"><span class="field-key">approach</span><span class="field-val">Cross-functional discovery → maturity assessment → capability roadmap → <em>3-year investment plan</em>.</span></div>
+          <div class="field"><span class="field-key">artifacts</span><span class="field-val">Capability heat-map · prioritisation matrix · sequenced delivery roadmap · investment ask.</span></div>
+          <div class="field"><span class="field-key">impact</span><span class="field-val">Aligned executive sponsors on a <em>3-year analytics investment direction</em> across multiple lines of business.</span></div>
+        </div></div></div>
+      </article>
+
+      <!-- 03 context store -->
+      <article class="case" data-tags="engineering ai data">
+        <button class="case-head" aria-expanded="false">
+          <div class="case-lead">
+            <span class="case-idx">./03</span>
+            <span class="case-title">context_store</span>
+            <span class="case-status"><span class="dot green"></span>Active · 2025</span>
+          </div>
+          <div class="case-tags">
+            <span class="tag-mini">Engineering</span>
+            <span class="tag-mini">AI</span>
+            <span class="tag-mini">Data</span>
+          </div>
+          <span class="case-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="case-body"><div class="case-body-inner"><div class="case-fields">
+          <div class="field"><span class="field-key">summary</span><span class="field-val">A centralised, governed context layer connecting enterprise data sources to Text2SQL, DQ, Profiler, STTM, and Agentic ETL agents.</span></div>
+          <div class="field"><span class="field-key">design</span><span class="field-val">5 context-object types · LLM auto-tagging with steward review · semantic + hybrid retrieval · RBAC · versioning with rollback · usage tracking.</span></div>
+          <div class="field"><span class="field-key">judgement</span><span class="field-val">Steered scope away from a sprawling "do-everything" draft → focused POC the stakeholders <em>could actually fund</em>.</span></div>
+          <div class="field"><span class="field-key">impact</span><span class="field-val">Reusable middle layer enabling <em>multi-agent trust</em> across the analytics stack.</span></div>
+          <div class="field"><span class="field-key">stack</span><span class="field-val stack"><span class="stack-pill">FastAPI</span><span class="stack-pill">Postgres</span><span class="stack-pill">PGVector</span><span class="stack-pill">Azure Blob</span><span class="stack-pill">React</span></span></div>
+        </div></div></div>
+      </article>
+
+      <!-- 04 CDM hire-to-retire (NEW) -->
+      <article class="case" data-tags="modelling data engineering">
+        <button class="case-head" aria-expanded="false">
+          <div class="case-lead">
+            <span class="case-idx">./04</span>
+            <span class="case-title">cdm_hire_to_retire</span>
+            <span class="case-status"><span class="dot"></span>Shipped · 2024 — 25</span>
+          </div>
+          <div class="case-tags">
+            <span class="tag-mini">Modelling</span>
+            <span class="tag-mini">Data</span>
+            <span class="tag-mini">P&amp;O · HR</span>
+          </div>
+          <span class="case-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="case-body"><div class="case-body-inner"><div class="case-fields">
+          <div class="field"><span class="field-key">summary</span><span class="field-val">Designed and shipped the <strong>A360 Common Data Model</strong> for the entire hire-to-retire lifecycle for a Fortune 100 client's <strong>People &amp; Operations</strong> function. Engineered to be <em>agnostic to future acquisitions</em> — new entities plug in without breaking the schema.</span></div>
+          <div class="field"><span class="field-key">modelling</span><span class="field-val">People data done right: <strong>slowly-changing dimensions</strong> for employee attributes, transactional fact tables for HR events, hire-to-rehire continuity preserved across the lifecycle.</span></div>
+          <div class="field"><span class="field-key">lifecycle</span><span class="field-val">Conceptual diagrams → logical model → physical deployment in production — <em>end-to-end, multiple times</em>, also across supply-chain and commercial domains.</span></div>
+          <div class="field"><span class="field-key">products</span><span class="field-val">Associate profile views, journey mapping, and AI-insight enablement layered on top of the canonical model.</span></div>
+          <div class="field"><span class="field-key">practice</span><span class="field-val">Trained junior engineers on the modelling discipline across HR, supply chain, and commercial data — <em>codified the mistakes I'd made so they wouldn't have to</em>.</span></div>
+          <div class="field"><span class="field-key">stack</span><span class="field-val stack"><span class="stack-pill">Snowflake</span><span class="stack-pill">dbt</span><span class="stack-pill">Power BI</span><span class="stack-pill">Azure</span></span></div>
+        </div></div></div>
+      </article>
+
+      <!-- 05 unified order model (merges ssot_commercial + adds the order-language story) -->
+      <article class="case" data-tags="modelling data engineering selfserve">
+        <button class="case-head" aria-expanded="false">
+          <div class="case-lead">
+            <span class="case-idx">./05</span>
+            <span class="case-title">unified_order_model</span>
+            <span class="case-status"><span class="dot"></span>Shipped · 2023 — 24</span>
+          </div>
+          <div class="case-tags">
+            <span class="tag-mini">Modelling</span>
+            <span class="tag-mini">Data</span>
+            <span class="tag-mini">Commercial · Supply Chain</span>
+          </div>
+          <span class="case-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="case-body"><div class="case-body-inner"><div class="case-fields">
+          <div class="field"><span class="field-key">summary</span><span class="field-val">A unified data model spanning <strong>sales orders, purchase orders, and supply orders</strong> — the first time the commercial and supply-chain teams at a Fortune 100 CPG <em>spoke the same language</em>. Sat at the heart of the SSOT.</span></div>
+          <div class="field"><span class="field-key">modelling</span><span class="field-val">One canonical order grain. One calendar. One product hierarchy. Joinable across LOBs without translation layers — supporting every downstream report the business wanted.</span></div>
+          <div class="field"><span class="field-key">stakeholders</span><span class="field-val">VP IT · Analytics Manager · supply-chain &amp; commercial leads. Translated their separate vocabularies into a single one the data could speak.</span></div>
+          <div class="field"><span class="field-key">slas</span><span class="field-val">Warehouse monitoring surfacing workload anomalies + cost drift; <em>+30% data reliability</em> on the SSOT.</span></div>
+          <div class="field"><span class="field-key">impact</span><span class="field-val"><em>$650K annual savings</em> · decisions on the same numbers, finally.</span></div>
+          <div class="field"><span class="field-key">stack</span><span class="field-val stack"><span class="stack-pill">Snowflake</span><span class="stack-pill">Azure</span><span class="stack-pill">Power BI</span><span class="stack-pill">Python</span></span></div>
+        </div></div></div>
+      </article>
+
+      <!-- 06 battery logistics (NEW) -->
+      <article class="case" data-tags="data engineering selfserve">
+        <button class="case-head" aria-expanded="false">
+          <div class="case-lead">
+            <span class="case-idx">./06</span>
+            <span class="case-title">battery_logistics</span>
+            <span class="case-status"><span class="dot"></span>Shipped · 2023 — 24</span>
+          </div>
+          <div class="case-tags">
+            <span class="tag-mini">Data</span>
+            <span class="tag-mini">Operational</span>
+            <span class="tag-mini">Self-service</span>
+          </div>
+          <span class="case-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="case-body"><div class="case-body-inner"><div class="case-fields">
+          <div class="field"><span class="field-key">summary</span><span class="field-val">SSOT for a battery distribution company. Led a 5-person team to build the data foundation that put the right numbers in the right hands at the right time.</span></div>
+          <div class="field"><span class="field-key">product</span><span class="field-val">Truck loaders received their morning load list at <strong>8:00 AM</strong> — which batteries to load, in what quantities, for what routes. Calibrated against actual demand rather than yesterday's guess.</span></div>
+          <div class="field"><span class="field-key">impact</span><span class="field-val">Real money saved on inventory and over-ordering. <em>Data has more power than we usually imagine</em> — sometimes it's the 8 AM list, not the dashboard.</span></div>
+          <div class="field"><span class="field-key">practice</span><span class="field-val">Mentored the 5-person team end-to-end through the modelling and delivery lifecycle.</span></div>
+          <div class="field"><span class="field-key">stack</span><span class="field-val stack"><span class="stack-pill">Snowflake</span><span class="stack-pill">Azure</span><span class="stack-pill">Python</span><span class="stack-pill">Power BI</span></span></div>
+        </div></div></div>
+      </article>
+
+      <!-- 07 DQ accelerator -->
+      <article class="case" data-tags="data ai">
+        <button class="case-head" aria-expanded="false">
+          <div class="case-lead">
+            <span class="case-idx">./07</span>
+            <span class="case-title">dq_accelerator</span>
+            <span class="case-status"><span class="dot"></span>Shipped · 2022 — 23</span>
+          </div>
+          <div class="case-tags">
+            <span class="tag-mini">Data</span>
+            <span class="tag-mini">AI</span>
+            <span class="tag-mini">Reusable</span>
+          </div>
+          <span class="case-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="case-body"><div class="case-body-inner"><div class="case-fields">
+          <div class="field"><span class="field-key">summary</span><span class="field-val">Reusable Python module that bootstraps DQ rules from metadata + lineage via LLMs — semantic checks, anomaly detection, explainable enough that stewards actually approve the rules.</span></div>
+          <div class="field"><span class="field-key">why</span><span class="field-val">Helpful, honest, harmless AI starts with helpful, honest, harmless <em>data</em>.</span></div>
+          <div class="field"><span class="field-key">impact</span><span class="field-val">Adopted in <em>6 projects</em>, secured <em>4 new engagements</em>.</span></div>
+          <div class="field"><span class="field-key">stack</span><span class="field-val stack"><span class="stack-pill">Python</span><span class="stack-pill">GenAI</span><span class="stack-pill">Snowflake</span></span></div>
+        </div></div></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section id="principles" class="reveal">
+    <div class="section-head">
+      <div class="num">— 02 / principles</div>
+      <div>
+        <h2>How I <span class="accent">work</span>.</h2>
+        <div class="sub">The implicit contract behind everything above.</div>
+      </div>
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle">
+        <div class="pnum">01</div>
+        <h3>Ship before <span class="accent">certain</span>.</h3>
+        <p>Bias for action over architectural perfectionism. Pulled the Context Store POC back from a six-month sprawl into <em>something fundable in a quarter</em>. The metric is shipped, not designed.</p>
+      </div>
+      <div class="principle">
+        <div class="pnum">02</div>
+        <h3>Full-stack on <span class="accent">purpose</span>.</h3>
+        <p>Stakeholder discovery → schemas → pipelines → dashboards → adoption. Not because the title says so — <em>because each layer informs the next</em>. The dashboard fights you when the model is wrong.</p>
+      </div>
+      <div class="principle">
+        <div class="pnum">03</div>
+        <h3>Honest data over <span class="accent">clever data</span>.</h3>
+        <p>Helpful, honest, harmless AI starts with helpful, honest, harmless data. The only thing worse than no metric is <em>a metric you can't trust</em>. Built a GenAI-powered DQ accelerator on that premise.</p>
+      </div>
+      <div class="principle">
+        <div class="pnum">04</div>
+        <h3>Translate, don't <span class="accent">transcribe</span>.</h3>
+        <p>"We need a dashboard" means something different to the VP than to the PM. Six years of consulting was a <em>masterclass in figuring out which one matters</em> — and saying so out loud.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack" class="reveal">
+    <div class="section-head">
+      <div class="num">— 03 / stack</div>
+      <div>
+        <h2>Tools I reach for <span class="accent">without thinking</span>.</h2>
+        <div class="sub">Shipped with, repeatedly. Adjacent ones called out separately.</div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="stack-col">
+        <h4>languages</h4>
+        <ul><li>SQL</li><li>Python</li><li>Scala / Spark</li><li>Bash</li></ul>
+      </div>
+      <div class="stack-col">
+        <h4>pipelines &amp; orch.</h4>
+        <ul><li>dbt</li><li>Airflow</li><li>Azure Data Factory</li><li>Databricks · GitHub CI/CD</li></ul>
+      </div>
+      <div class="stack-col">
+        <h4>warehousing</h4>
+        <ul><li>Snowflake</li><li>DuckDB</li><li>Lakehouse · Medallion</li><li>Kimball · Data Vault</li></ul>
+      </div>
+      <div class="stack-col">
+        <h4>bi &amp; genai</h4>
+        <ul><li>Power BI · Tableau</li><li>RAG · hybrid retrieval</li><li>Multi-agent design</li><li>LLM evals</li></ul>
+      </div>
+    </div>
+
+    <div class="stack-adjacent">
+      <span class="lbl">adjacent</span>
+      <span>Hex</span><span>·</span>
+      <span>MotherDuck</span><span>·</span>
+      <span>Looker</span>
+      <span style="color: var(--muted); margin-left: 0.5rem;"># comfortable picking up fast</span>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section id="cv" class="reveal">
+    <div class="section-head">
+      <div class="num">— 04 / cv</div>
+      <div>
+        <h2>Six years <span class="accent">at one company</span>.</h2>
+        <div class="sub">$ git log --oneline</div>
+      </div>
+    </div>
+
+    <div class="git-log">
+      <div class="commit current">
+        <span class="commit-hash">HEAD →</span>
+        <div class="commit-body">
+          <div class="commit-msg">Engagement Manager · <em>Data &amp; AI Consultant</em></div>
+          <div class="commit-meta">MathCo · <span class="here">New York</span> · 30-person team · F10 + F100 clients</div>
+        </div>
+        <span class="commit-date">Jun 2025 — <strong>Now</strong></span>
+      </div>
+      <div class="commit">
+        <span class="commit-hash">9af6e31</span>
+        <div class="commit-body">
+          <div class="commit-msg">Engineering Manager · <em>Delivery Lead</em></div>
+          <div class="commit-meta">MathCo · Bengaluru · $1.2M ARR · 15-person team</div>
+        </div>
+        <span class="commit-date">Jul 2024 — May 2025</span>
+      </div>
+      <div class="commit">
+        <span class="commit-hash">b3f5c20</span>
+        <div class="commit-body">
+          <div class="commit-msg">Senior Associate</div>
+          <div class="commit-meta">MathCo · Bengaluru</div>
+        </div>
+        <span class="commit-date">Jul 2023 — Jun 2024</span>
+      </div>
+      <div class="commit">
+        <span class="commit-hash">4e7d1a8</span>
+        <div class="commit-body">
+          <div class="commit-msg">Associate · <em>Engineering Horizontal</em></div>
+          <div class="commit-meta">MathCo · Bengaluru</div>
+        </div>
+        <span class="commit-date">Jul 2022 — Jun 2023</span>
+      </div>
+      <div class="commit">
+        <span class="commit-hash">c91a2b7</span>
+        <div class="commit-body">
+          <div class="commit-msg">Analyst</div>
+          <div class="commit-meta">MathCo · Bengaluru</div>
+        </div>
+        <span class="commit-date">Sep 2020 — Jul 2022</span>
+      </div>
+    </div>
+
+    <div class="career-foot">
+      <span><span class="accent">→</span> Fastracked to EM in 4 years</span>
+      <span><span class="accent">→</span> Zero escalations across $1.2M ARR account</span>
+      <span><span class="accent">→</span> B.Tech, VNIT Nagpur</span>
+      <span><span class="accent">→</span> SnowPro Core · AWS SAA</span>
+    </div>
+  </section>
+
+  <!-- SPEAKING -->
+  <section id="speaking" class="reveal">
+    <div class="section-head">
+      <div class="num">— 05 / on stage</div>
+      <div>
+        <h2>Data Engineering Summit, <span class="accent">2025</span>.</h2>
+      </div>
+    </div>
+
+    <div class="speak">
+      <blockquote class="quote">
+        Agentic systems are <em>stochastic, not deterministic</em> — so even a 0.1% gain in accuracy matters. Enriching context the right way isn't optional; it's essential.
+        <span class="attr">— Architecting Contextual Layers for GenAI · DES'25</span>
+      </blockquote>
+      <a class="talk-btn" href="https://www.youtube.com/watch?v=VVWiJHeaeGk" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Watch
+      </a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="reveal">
+    <div class="section-head">
+      <div class="num">— 06 / said about</div>
+      <div>
+        <h2>Client notes, <span class="accent">verbatim</span>.</h2>
+      </div>
+    </div>
+    <div class="testimonials">
+      <div class="testi">
+        <p>"Mansit brings a <em>rare blend of technical depth and business insight.</em> Clarity in communication, proactiveness, genuine commitment — the kind of high-performance collaboration every individual should strive for."</p>
+        <div class="by"><strong>VP, IT</strong> · U.S.-based Fortune 100 CPG</div>
+      </div>
+      <div class="testi">
+        <p>"They <em>understand things faster</em> than most other contractors I've worked with. Open to feedback, always positive and helpful. Mansit's drive for excellence continues to raise the bar."</p>
+        <div class="by"><strong>Senior Director, Analytics</strong> · U.S.-based Fortune 100 CPG</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKS & INTERESTS -->
+  <section id="below" class="reveal">
+    <div class="section-head">
+      <div class="num">— 07 / off-clock</div>
+      <div>
+        <h2>Books I keep close, <span class="accent">and what I tinker with</span>.</h2>
+      </div>
+    </div>
+
+    <div class="below">
+      <div>
+        <h3>currently on the shelf</h3>
+        <ul class="books-list">
+          <li>
+            <span class="b-ttl"><em>Designing</em> Data-Intensive Applications</span>
+            <span class="b-auth">— Martin Kleppmann</span>
+          </li>
+          <li>
+            <span class="b-ttl">AI <em>Engineering</em></span>
+            <span class="b-auth">— Chip Huyen</span>
+          </li>
+          <li>
+            <span class="b-ttl">The Data Warehouse <em>Toolkit</em></span>
+            <span class="b-auth">— Ralph Kimball</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>interests &amp; practice work</h3>
+        <ul class="interests-list">
+          <li>
+            <span class="what">community</span>
+            <span class="how">Co-founded <em>Tech Minds</em> at MathCo · 250–300 engineers/session</span>
+          </li>
+          <li>
+            <span class="what">knowledge</span>
+            <span class="how">Built <em>Engineering Hub</em> — practice repo · 50–60 active users/week</span>
+          </li>
+          <li>
+            <span class="what">framework</span>
+            <span class="how">Problem-assessment framework adopted in <em>100+ projects</em> · +20% CSAT</span>
+          </li>
+          <li>
+            <span class="what">mentoring</span>
+            <span class="how">Co-designed curriculum for <em>190 freshers</em></span>
+          </li>
+          <li>
+            <span class="what">side project</span>
+            <span class="how">Data engineering <em>co-pilot</em> · RAG + prompt-engineering pipelines</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact reveal">
+    <div class="section-head">
+      <div class="num">— 08 / contact</div>
+      <div>
+        <h2>Let's build the <span class="accent">context layer</span> together. <a href="mailto:msplmansit@gmail.com">say&nbsp;hello&nbsp;↗</a></h2>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="lbl">email</div>
+        <a class="val" href="mailto:msplmansit@gmail.com">msplmansit@gmail.com</a>
+      </div>
+      <div>
+        <div class="lbl">phone</div>
+        <a class="val" href="tel:+917758011732">+91 77580 11732</a>
+      </div>
+      <div>
+        <div class="lbl">linkedin</div>
+        <a class="val" href="https://www.linkedin.com/in/mansit-suman/" target="_blank" rel="noopener">/in/mansit-suman ↗</a>
+      </div>
+      <div>
+        <div class="lbl">based</div>
+        <span class="val">New York · since Jun '25</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="inner">
+    <span>© 2026 mansit_suman</span>
+    <span><span class="accent">~</span> bharosa — built on trust, shipped with receipts</span>
+    <span>Geist · JetBrains Mono</span>
+  </div>
+</footer>
+
+<script>
+  const reveal = () => document.body.classList.add('loaded');
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(reveal);
+    setTimeout(reveal, 1200);
+  } else reveal();
+
+  const topbar = document.getElementById('topbar');
+  const onScroll = () => topbar.classList.toggle('scrolled', window.scrollY > 20);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      const offset = window.innerWidth < 480 ? 60 : 70;
+      const y = t.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+
+  const filters = document.querySelectorAll('.filter');
+  const cases   = document.querySelectorAll('#cases .case');
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cases.forEach(c => {
+        const tags = (c.dataset.tags || '').split(/\s+/);
+        const match = f === 'all' || tags.includes(f);
+        c.classList.toggle('hidden', !match);
+        if (!match) {
+          c.classList.remove('open');
+          c.querySelector('.case-head').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  });
+
+  cases.forEach(c => {
+    const head = c.querySelector('.case-head');
+    head.addEventListener('click', () => {
+      const isOpen = c.classList.toggle('open');
+      head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  document.querySelectorAll('.define').forEach(el => el.setAttribute('tabindex', '0'));
+
+  const navLinks = Array.from(document.querySelectorAll('nav.primary a:not(.cta)'));
+  const sections = navLinks
+    .map(a => ({ a, el: document.querySelector(a.getAttribute('href')) }))
+    .filter(x => x.el);
+  const setActive = () => {
+    const y = window.scrollY + 120;
+    let active = null;
+    sections.forEach(s => { if (s.el.offsetTop <= y) active = s.a; });
+    navLinks.forEach(a => a.classList.toggle('active', a === active));
+  };
+  window.addEventListener('scroll', setActive, { passive: true });
+  window.addEventListener('resize', setActive, { passive: true });
+  setActive();
+</script>
+
+</body>
+</html>
